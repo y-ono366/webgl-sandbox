@@ -1,47 +1,32 @@
 <template>
-  <canvas id="canvas" class="full-canvas"></canvas>
+  <canvas ref="canvas" />
 </template>
 
 <script>
 import * as THREE from 'three'
+import CONST from '@/consts'
 
 export default {
   name: 'Lines',
   data() {
-    const width = 1000
-    const height = 650
-    const renderer = null
-    const scene = new THREE.Scene()
-    const boxGeometry = new THREE.BoxGeometry(9, 9, 1400)
-    const boxMaterial = new THREE.MeshPhongMaterial({ color: 0xaaaa34 })
-    const box = new THREE.Mesh(boxGeometry, boxMaterial)
-    const camera = new THREE.PerspectiveCamera(40, width / height, 1, 10000)
-    const lineMaterial = new THREE.LineBasicMaterial({ color: 0xaaaa34 })
-    const lineGeometry = new THREE.Geometry()
-    const line = new THREE.Line(lineGeometry, lineMaterial)
-    const directionalLight = new THREE.DirectionalLight('0xffffff')
     return {
-      width,
-      height,
-      renderer,
-      scene,
-      boxGeometry,
-      boxMaterial,
-      box,
-      camera,
-      lineMaterial,
-      lineGeometry,
-      line,
-      directionalLight
+      renderer: null,
+      scene: new THREE.Scene(),
+      box: null,
+      camera: null,
+      lineGeometry: null,
+      line: null
     }
   },
-
+  created() {
+    this.init()
+  },
   mounted() {
-    const $canvas = document.getElementById('canvas')
+    const canvas = this.$refs.canvas
     this.renderer = new THREE.WebGLRenderer({
-      canvas: $canvas
+      canvas
     })
-    this.renderer.setSize(this.width, this.height)
+    this.renderer.setSize(CONST.SCREEN.WIDTH, CONST.SCREEN.HEIGHT)
     this.camera.position.set(0, 0, +2000)
     this.lineGeometry.vertices.push(
       new THREE.Vector3(-100, 0, 0),
@@ -52,11 +37,22 @@ export default {
 
     this.scene.add(this.line)
     this.scene.add(this.box)
-    this.scene.add(this.directionalLight)
+    const directionalLight = new THREE.DirectionalLight('0xffffff')
+    this.scene.add(directionalLight)
 
     this.tick()
   },
   methods: {
+    init() {
+      const boxGeometry = new THREE.BoxGeometry(9, 9, 1400)
+      const boxMaterial = new THREE.MeshPhongMaterial({ color: 0xaaaa34 })
+      this.box = new THREE.Mesh(boxGeometry, boxMaterial)
+      this.camera = new THREE.PerspectiveCamera(40, CONST.SCREEN.WIDTH / CONST.SCREEN.HEIGHT, 1, 10000)
+
+      const lineMaterial = new THREE.LineBasicMaterial({ color: 0xaaaa34 })
+      this.lineGeometry = new THREE.Geometry()
+      this.line = new THREE.Line(this.lineGeometry, lineMaterial)
+    },
     tick() {
       requestAnimationFrame(this.tick)
       this.box.rotation.x += 3

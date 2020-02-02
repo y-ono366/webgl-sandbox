@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvas" id="canvas"></canvas>
+  <canvas ref="canvas" />
 </template>
 
 <script>
@@ -22,9 +22,9 @@ export default {
   },
 
   mounted() {
-    const $canvas = this.$refs.canvas
+    const canvas = this.$refs.canvas
     this.renderer = new THREE.WebGLRenderer({
-      canvas: $canvas
+      canvas
     })
 
     this.stoneTexture = THREE.ImageUtils.loadTexture(StoneImage)
