@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <nuxt-link to="/rotate">rotate</nuxt-link>
+      <nuxt-link to="/rotatebox">rotatebox</nuxt-link>
     </div>
     <div>
       <nuxt-link to="/lines">lines</nuxt-link>
