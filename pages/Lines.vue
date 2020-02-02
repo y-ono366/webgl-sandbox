@@ -13,8 +13,7 @@ export default {
       renderer: null,
       scene: new THREE.Scene(),
       box: null,
-      camera: null,
-      lineGeometry: null,
+      camera: new THREE.PerspectiveCamera(40, CONST.SCREEN.WIDTH / CONST.SCREEN.HEIGHT, 1, 10000),
       line: null
     }
   },
@@ -27,13 +26,6 @@ export default {
       canvas
     })
     this.renderer.setSize(CONST.SCREEN.WIDTH, CONST.SCREEN.HEIGHT)
-    this.camera.position.set(0, 0, +2000)
-    this.lineGeometry.vertices.push(
-      new THREE.Vector3(-100, 0, 0),
-      new THREE.Vector3(0, 100, 0),
-      new THREE.Vector3(100, 0, 0),
-      new THREE.Vector3(0, -100, 0)
-    )
 
     this.scene.add(this.line)
     this.scene.add(this.box)
@@ -47,11 +39,19 @@ export default {
       const boxGeometry = new THREE.BoxGeometry(9, 9, 1400)
       const boxMaterial = new THREE.MeshPhongMaterial({ color: 0xaaaa34 })
       this.box = new THREE.Mesh(boxGeometry, boxMaterial)
-      this.camera = new THREE.PerspectiveCamera(40, CONST.SCREEN.WIDTH / CONST.SCREEN.HEIGHT, 1, 10000)
 
       const lineMaterial = new THREE.LineBasicMaterial({ color: 0xaaaa34 })
-      this.lineGeometry = new THREE.Geometry()
-      this.line = new THREE.Line(this.lineGeometry, lineMaterial)
+      const lineGeometry = new THREE.Geometry()
+      this.line = new THREE.Line(lineGeometry, lineMaterial)
+
+      lineGeometry.vertices.push(
+        new THREE.Vector3(-100, 0, 0),
+        new THREE.Vector3(0, 100, 0),
+        new THREE.Vector3(100, 0, 0),
+        new THREE.Vector3(0, -100, 0)
+      )
+
+      this.camera.position.set(0, 0, +2000)
     },
     tick() {
       requestAnimationFrame(this.tick)

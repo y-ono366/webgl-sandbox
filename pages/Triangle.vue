@@ -1,43 +1,49 @@
 <template>
-  <canvas id="canvas" class="full-canvas"></canvas>
+  <canvas ref="canvas" />
 </template>
 
 <script>
 import * as THREE from 'three'
+import CONST from '@/consts'
 
 export default {
   name: 'Triangle',
   data() {
-    const width = 1000
-    const height = 650
-    const renderer = null
-    const scene = new THREE.Scene()
-    const geometry = new THREE.Geometry()
-    const material = new THREE.LineBasicMaterial({ linewidth: 3, color: 0xcccc00 })
-    const camera = new THREE.PerspectiveCamera(40, width / height, 1, 1000)
-    const line = null
-    return { width, height, renderer, scene, material, geometry, camera, line }
+    return {
+      renderer: null,
+      scene: new THREE.Scene(),
+      material: new THREE.LineBasicMaterial({ linewidth: 3, color: 0xcccc00 }),
+      geometry: new THREE.Geometry(),
+      camera: new THREE.PerspectiveCamera(40, CONST.SCREEN.WIDTH / CONST.SCREEN.HEIGHT, 1, 1000),
+      line: null
+    }
   },
-
+  created() {
+    this.init()
+  },
   mounted() {
-    const $canvas = document.getElementById('canvas')
+    const canvas = this.$refs.canvas
     this.renderer = new THREE.WebGLRenderer({
-      canvas: $canvas
+      canvas
     })
-    this.camera.position.set(0, 0, 5)
 
-    this.geometry.vertices.push(new THREE.Vector3(0, 1.5, 0))
-    this.geometry.vertices.push(new THREE.Vector3(1.5, -1, 0))
-    this.geometry.vertices.push(new THREE.Vector3(-1.5, -1, 0))
-    this.geometry.vertices.push(new THREE.Vector3(0, 1.5, 0))
+    this.geometry.vertices.push(
+      new THREE.Vector3(0, 1.5, 0),
+      new THREE.Vector3(1.5, -1, 0),
+      new THREE.Vector3(-1.5, -1, 0),
+      new THREE.Vector3(0, 1.5, 0)
+    )
 
-    this.renderer.setSize(this.width, this.height)
+    this.renderer.setSize(CONST.SCREEN.WIDTH, CONST.SCREEN.HEIGHT)
 
     this.line = new THREE.Line(this.geometry, this.material)
     this.scene.add(this.line)
     this.tick()
   },
   methods: {
+    init() {
+      this.camera.position.set(0, 0, 5)
+    },
     tick() {
       this.line.rotation.y += 0.03
       requestAnimationFrame(this.tick)
