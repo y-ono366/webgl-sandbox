@@ -4,7 +4,6 @@
 
 <script>
 import * as THREE from 'three'
-import CONST from '@/consts'
 
 export default {
   name: 'Triangle',
@@ -14,14 +13,14 @@ export default {
       scene: new THREE.Scene(),
       material: new THREE.LineBasicMaterial({ linewidth: 3, color: 0xcccc00 }),
       geometry: new THREE.Geometry(),
-      camera: new THREE.PerspectiveCamera(40, CONST.SCREEN.WIDTH / CONST.SCREEN.HEIGHT, 1, 1000),
+      camera: null,
       line: null
     }
   },
-  created() {
-    this.init()
-  },
+  created() {},
   mounted() {
+    this.camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000)
+    this.camera.position.set(0, 0, 5)
     const canvas = this.$refs.canvas
     this.renderer = new THREE.WebGLRenderer({
       canvas
@@ -34,16 +33,13 @@ export default {
       new THREE.Vector3(0, 1.5, 0)
     )
 
-    this.renderer.setSize(CONST.SCREEN.WIDTH, CONST.SCREEN.HEIGHT)
+    this.renderer.setSize(window.innerWidth, window.innerHeight)
 
     this.line = new THREE.Line(this.geometry, this.material)
     this.scene.add(this.line)
     this.tick()
   },
   methods: {
-    init() {
-      this.camera.position.set(0, 0, 5)
-    },
     tick() {
       this.line.rotation.y += 0.03
       requestAnimationFrame(this.tick)

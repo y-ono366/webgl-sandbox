@@ -1,10 +1,14 @@
 <template>
   <div class="section">
-    <nuxt class="section-container" />
+    <Header />
+    <nuxt />
   </div>
 </template>
 <script>
-export default {}
+import Header from '@/components/common/Header'
+export default {
+  components: { Header }
+}
 </script>
 
 <style lang="scss">
@@ -13,15 +17,5 @@ export default {}
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-
-  &-container {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(51, 51, 51, 0.7);
-    z-index: 10;
-  }
 }
 </style>

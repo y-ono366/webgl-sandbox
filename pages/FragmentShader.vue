@@ -1,11 +1,10 @@
 <template>
-  <div ref="container" class="container"></div>
+  <div ref="container"></div>
 </template>
 
 <script>
 import * as THREE from 'three'
 import OrbitControls from 'three-orbitcontrols'
-// import CONST from '@/consts'
 export default {
   name: 'FragmentShader',
   data() {
@@ -210,15 +209,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.container {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: rgba(51, 51, 51, 0.7);
-  z-index: 10;
-}
-</style>

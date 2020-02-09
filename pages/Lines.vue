@@ -4,7 +4,6 @@
 
 <script>
 import * as THREE from 'three'
-import CONST from '@/consts'
 
 export default {
   name: 'Lines',
@@ -13,7 +12,7 @@ export default {
       renderer: null,
       scene: new THREE.Scene(),
       box: null,
-      camera: new THREE.PerspectiveCamera(40, CONST.SCREEN.WIDTH / CONST.SCREEN.HEIGHT, 1, 10000),
+      camera: null,
       line: null
     }
   },
@@ -25,7 +24,9 @@ export default {
     this.renderer = new THREE.WebGLRenderer({
       canvas
     })
-    this.renderer.setSize(CONST.SCREEN.WIDTH, CONST.SCREEN.HEIGHT)
+    this.renderer.setSize(window.innerWidth, window.innerHeight)
+    this.camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000)
+    this.camera.position.set(0, 0, +2000)
 
     this.scene.add(this.line)
     this.scene.add(this.box)
@@ -50,8 +51,6 @@ export default {
         new THREE.Vector3(100, 0, 0),
         new THREE.Vector3(0, -100, 0)
       )
-
-      this.camera.position.set(0, 0, +2000)
     },
     tick() {
       requestAnimationFrame(this.tick)
