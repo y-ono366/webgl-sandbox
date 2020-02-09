@@ -15,7 +15,8 @@
   "dependencies": {
     "@nuxtjs/pwa": "^3.0.0-0",
     "nuxt": "^2.0.0",
-    "three": "^0.113.2"
+    "three": "^0.113.2",
+    "three-orbitcontrols": "^2.110.3"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

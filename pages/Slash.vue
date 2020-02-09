@@ -6,7 +6,6 @@
 import * as THREE from 'three'
 import AssetsImage from '@/assets/Smoke-Element.png'
 import StoneImage from '@/assets/stone.jpg'
-import CONST from '@/consts'
 
 export default {
   name: 'Slash',
@@ -14,7 +13,7 @@ export default {
     return {
       renderer: null,
       scene: new THREE.Scene(),
-      camera: new THREE.PerspectiveCamera(40, CONST.SCREEN.WIDTH / CONST.SCREEN.HEIGHT, 1, 1000),
+      camera: null,
       smokeParticles: [],
       light: new THREE.DirectionalLight(0xffffff, 0.5),
       clock: new THREE.Clock(),
@@ -26,13 +25,14 @@ export default {
     this.renderer = new THREE.WebGLRenderer({
       canvas
     })
+    this.camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000)
     this.camera.position.set(0, 0, 100)
 
     this.smokeInit()
     this.faceMaterialInit()
     this.flashInit()
 
-    this.renderer.setSize(CONST.SCREEN.WIDTH, CONST.SCREEN.HEIGHT)
+    this.renderer.setSize(window.innerWidth, window.innerHeight)
 
     this.tick()
   },
