@@ -18,7 +18,7 @@ export default {
       rHalf: 800 / 2,
       maxParticleCount: 1000,
       particlesData: [],
-      particleCount: 400,
+      particleCount: 300,
       renderer: null,
       particlePositions: null,
       effectController: {
@@ -30,8 +30,7 @@ export default {
         particleCount: 500
       },
       positions: null,
-      colors: null,
-      controls: null
+      colors: null
     }
   },
   mounted() {
@@ -54,18 +53,16 @@ export default {
       helper.material.transparent = true
       this.group.add(helper)
 
-      this.controls = new OrbitControls(this.camera, container)
-      this.controls.enableDamping = true
-      this.controls.dampingFactor = 0.25
+      this.setControls()
       const segments = this.maxParticleCount * this.maxParticleCount
 
       this.positions = new Float32Array(segments * 3)
       this.colors = new Float32Array(segments * 3)
 
       const pMaterial = new THREE.PointsMaterial({
-        color: 0xffffff,
-        size: 2,
-        blending: THREE.AdditiveBlending,
+        color: 0xffff00,
+        size: 1,
+        blending: THREE.NoBlending,
         transparent: true,
         sizeAttenuation: false
       })
@@ -97,7 +94,7 @@ export default {
 
       // create the particle system
       this.pointCloud = new THREE.Points(particles, pMaterial)
-      this.group.add(this.pointCloud)
+      // this.group.add(this.pointCloud)
 
       const geometry = new THREE.BufferGeometry()
 
@@ -138,8 +135,6 @@ export default {
       let numConnected = 0
       let colorpos = 0
 
-      for (let i = 0; i < this.particleCount; i++) this.particlesData[i].numConnections = 0
-
       for (let i = 0; i < this.particleCount; i++) {
         // get the particle
         const particleData = this.particlesData[i]
@@ -148,11 +143,11 @@ export default {
         this.particlePositions[i * 3 + 1] += particleData.velocity.y
         this.particlePositions[i * 3 + 2] += particleData.velocity.z
 
-        if (this.particlePositions[i * 3 + 1] < -this.rHalf || this.particlePositions[i * 3 + 1] > this.rHalf)
-          particleData.velocity.y = -particleData.velocity.y
-
         if (this.particlePositions[i * 3] < -this.rHalf || this.particlePositions[i * 3] > this.rHalf)
           particleData.velocity.x = -particleData.velocity.x
+
+        if (this.particlePositions[i * 3 + 1] < -this.rHalf || this.particlePositions[i * 3 + 1] > this.rHalf)
+          particleData.velocity.y = -particleData.velocity.y
 
         if (this.particlePositions[i * 3 + 2] < -this.rHalf || this.particlePositions[i * 3 + 2] > this.rHalf)
           particleData.velocity.z = -particleData.velocity.z
@@ -160,9 +155,9 @@ export default {
         // Check collision
         for (let j = i + 1; j < this.particleCount; j++) {
           const particleDataB = this.particlesData[j]
-          const dx = this.particlePositions[i * 5] - this.particlePositions[j * 5]
-          const dy = this.particlePositions[i * 5 + 1] - this.particlePositions[j * 5 + 1]
-          const dz = this.particlePositions[i * 5 + 2] - this.particlePositions[j * 5 + 2]
+          const dx = this.particlePositions[i * 3] - this.particlePositions[j * 3]
+          const dy = this.particlePositions[i * 3 + 1] - this.particlePositions[j * 3 + 1]
+          const dz = this.particlePositions[i * 3 + 2] - this.particlePositions[j * 3 + 2]
           const dist = Math.sqrt(dx * dx + dy * dy + dz * dz)
           if (dist < this.effectController.minDistance) {
             particleData.numConnections++
@@ -170,13 +165,13 @@ export default {
 
             const alpha = 1.0 - dist / this.effectController.minDistance
 
-            this.positions[vertexpos++] = this.particlePositions[i * 5]
-            this.positions[vertexpos++] = this.particlePositions[i * 5 + 1]
-            this.positions[vertexpos++] = this.particlePositions[i * 5 + 2]
+            this.positions[vertexpos++] = this.particlePositions[i * 3]
+            this.positions[vertexpos++] = this.particlePositions[i * 3 + 1]
+            this.positions[vertexpos++] = this.particlePositions[i * 3 + 2]
 
-            this.positions[vertexpos++] = this.particlePositions[j * 5]
-            this.positions[vertexpos++] = this.particlePositions[j * 5 + 1]
-            this.positions[vertexpos++] = this.particlePositions[j * 5 + 2]
+            this.positions[vertexpos++] = this.particlePositions[j * 3]
+            this.positions[vertexpos++] = this.particlePositions[j * 3 + 1]
+            this.positions[vertexpos++] = this.particlePositions[j * 3 + 2]
 
             this.colors[colorpos++] = alpha
             this.colors[colorpos++] = alpha
@@ -190,7 +185,7 @@ export default {
         }
       }
 
-      this.linesMesh.geometry.setDrawRange(0, numConnected * 2)
+      this.linesMesh.geometry.setDrawRange(0, numConnected * 3)
       this.linesMesh.geometry.attributes.position.needsUpdate = true
       this.linesMesh.geometry.attributes.color.needsUpdate = true
 
@@ -205,6 +200,13 @@ export default {
       this.group.rotation.y = time * 0.1
       this.group.rotation.x = time * 0.2
       this.renderer.render(this.scene, this.camera)
+    },
+    // init mouse control
+    setControls() {
+      const container = this.$refs.container
+      const controls = new OrbitControls(this.camera, container)
+      controls.enableDamping = true
+      controls.dampingFactor = 0.25
     }
   }
 }
