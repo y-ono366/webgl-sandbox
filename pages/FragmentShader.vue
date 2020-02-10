@@ -163,7 +163,7 @@ export default {
             particleData.numConnections++
             particleDataB.numConnections++
 
-            const alpha = 1.0 - dist / this.effectController.minDistance
+            const alpha = 2 - dist / this.effectController.minDistance
 
             this.positions[vertexpos++] = this.particlePositions[i * 3]
             this.positions[vertexpos++] = this.particlePositions[i * 3 + 1]
