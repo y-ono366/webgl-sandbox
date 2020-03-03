@@ -19,6 +19,9 @@
       <div>
         <nuxt-link to="/fragmentshader">FragmentShader</nuxt-link>
       </div>
+      <div>
+        <nuxt-link to="/usestrict">usestrict</nuxt-link>
+      </div>
     </div>
   </div>
 </template>
