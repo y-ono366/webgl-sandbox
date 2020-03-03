@@ -16,9 +16,11 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "nuxt": "^2.0.0",
     "three": "^0.113.2",
-    "three-orbitcontrols": "^2.110.3"
+    "three-orbitcontrols": "^2.110.3",
+    "vue-property-decorator": "^8.4.0"
   },
   "devDependencies": {
+    "@nuxt/typescript-build": "^0.5.7",
     "@nuxtjs/eslint-config": "^1.0.1",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/stylelint-module": "^3.1.0",
