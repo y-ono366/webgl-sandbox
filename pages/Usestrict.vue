@@ -1,6 +1,6 @@
 <template>
   <div class="usestrict">
-    <h1 class="usestrict-text">USESTRICT</h1>
+    <img src="@/assets/usestrict.svg" class="usestrict-text" />
   </div>
 </template>
 
@@ -10,19 +10,12 @@ export default class UseStrict extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-@font-face {
-  font-family: 'ultimatemetal';
-  src: url('../assets/ultimate-black-matel.ttf');
-}
-
 .usestrict {
-  font-family: ultimatemetal;
-  text-align: center;
-  font-size: 200px;
-  letter-spacing: 25px;
-
   &-text {
-    margin: 0;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-color: yellow;
   }
 }
 </style>
