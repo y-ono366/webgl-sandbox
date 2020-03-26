@@ -3,7 +3,17 @@
     <div v-for="(item, key) in items" :key="key" class="thumbnail">
       <nuxt-link :to="item.link">
         <img v-if="isImage(item.thumbnail)" :src="item.thumbnail" :alt="item.alt" class="thumbnail-media" />
-        <video :id="key" v-else :src="item.thumbnail" class="thumbnail-media" loop muted preload />
+        <video
+          :id="key"
+          v-else
+          :src="item.thumbnail"
+          @mouseover="mouseover"
+          @mouseleave="mouseleave"
+          class="thumbnail-media"
+          loop
+          muted
+          preload
+        />
       </nuxt-link>
     </div>
   </div>
@@ -29,6 +39,12 @@ export default Vue.extend({
   methods: {
     isImage(path: GLItem['thumbnail']): boolean {
       return /(png|jpg)+$/.test(path)
+    },
+    mouseover(e: Event): void {
+      e.target instanceof HTMLMediaElement && e.target.play()
+    },
+    mouseleave(e: Event): void {
+      e.target instanceof HTMLMediaElement && e.target.pause()
     }
   }
 })
