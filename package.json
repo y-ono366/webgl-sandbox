@@ -24,6 +24,7 @@
   "devDependencies": {
     "@nuxt/typescript-build": "^0.5.7",
     "@nuxtjs/eslint-config": "^1.0.1",
+    "@nuxtjs/eslint-config-typescript": "^1.0.2",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/stylelint-module": "^3.1.0",
     "babel-eslint": "^10.0.1",
@@ -35,6 +36,7 @@
     "prettier": "^1.16.4",
     "sass-loader": "^8.0.2",
     "stylelint": "^10.1.0",
+    "stylelint-scss": "^3.16.0",
     "vue-loader": "^15.8.3"
   }
 }

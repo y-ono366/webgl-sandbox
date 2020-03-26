@@ -46,10 +46,15 @@ export default {
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {}
+    extend(config) {
+      config.module.rules.push({
+        test: /\.(wav|mov?)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]'
+        }
+      })
+    }
   },
 
   typescript: {
