@@ -2,12 +2,8 @@
   <div class="thumbnails">
     <div v-for="(item, key) in items" :key="key" class="thumbnail">
       <nuxt-link :to="item.link">
-        <components
-          :is="thumbnailTag(item.thumbnail)"
-          v-bind="tagOptions(item.thumbnail)"
-          :src="item.thumbnail"
-          class="thumbnail-img"
-        />
+        <img v-if="isImage(item.thumbnail)" :src="item.thumbnail" :alt="item.alt" class="thumbnail-media" />
+        <video :id="key" v-else :src="item.thumbnail" class="thumbnail-media" loop muted preload />
       </nuxt-link>
     </div>
   </div>
@@ -16,6 +12,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 type GLItem = {
+  alt: string
   thumbnail: string
   link: string
 }
@@ -30,19 +27,7 @@ export default Vue.extend({
   },
   computed: {},
   methods: {
-    thumbnailTag(thumbnail: GLItem['thumbnail']) {
-      return this.isExternal(thumbnail) ? 'img' : 'video'
-    },
-    tagOptions(thumbnail: GLItem['thumbnail']) {
-      if (this.isExternal(thumbnail)) return
-      return {
-        autoplay: true,
-        loop: true,
-        muted: true,
-        preload: true
-      }
-    },
-    isExternal(path: GLItem['thumbnail']): boolean {
+    isImage(path: GLItem['thumbnail']): boolean {
       return /(png|jpg)+$/.test(path)
     }
   }
@@ -58,7 +43,7 @@ export default Vue.extend({
 }
 .thumbnail {
   margin: 2px 4px 0px;
-  &-img {
+  &-media {
     width: 291.24px;
     height: 180px;
   }

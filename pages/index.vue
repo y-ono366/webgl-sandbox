@@ -35,6 +35,7 @@ export default Vue.extend({
           link: '/fragmentshader'
         },
         {
+          alt: 'usestrict',
           thumbnail: require('@/assets/thumbnails/usestrict.png'),
           link: '/usestrict'
         }
