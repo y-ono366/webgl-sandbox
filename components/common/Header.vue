@@ -8,7 +8,7 @@
 .header {
   padding-top: 35px;
   padding-bottom: 35px;
-  width: 780px;
+  width: 1280px;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;

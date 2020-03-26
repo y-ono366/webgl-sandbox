@@ -1,35 +1,47 @@
 <template>
-  <div>
-    <div>
-      <div>
-        <nuxt-link to="/samplebox">samplebox</nuxt-link>
-      </div>
-      <div>
-        <nuxt-link to="/lines">lines</nuxt-link>
-      </div>
-      <div>
-        <nuxt-link to="/samplebox2">samplebox2</nuxt-link>
-      </div>
-      <div>
-        <nuxt-link to="/triangle">triangle</nuxt-link>
-      </div>
-      <div>
-        <nuxt-link to="/slash">slash</nuxt-link>
-      </div>
-      <div>
-        <nuxt-link to="/fragmentshader">FragmentShader</nuxt-link>
-      </div>
-      <div>
-        <nuxt-link to="/usestrict">usestrict</nuxt-link>
-      </div>
-    </div>
+  <div class="worklist">
+    <Thumbnails :items="items" />
   </div>
 </template>
 
-<script>
-export default {
-  layout: 'index'
-}
+<script lang="ts">
+import Vue from 'vue'
+import Thumbnails from '@/components/Thumbnails'
+
+export default Vue.extend({
+  layout: 'index',
+  components: { Thumbnails },
+  computed: {
+    items() {
+      return [
+        {
+          thumbnail: require('@/assets/thumbnails/samplebox.mov'),
+          link: '/samplebox'
+        },
+        {
+          thumbnail: require('@/assets/thumbnails/samplebox2.mov'),
+          link: '/samplebox2'
+        },
+        {
+          thumbnail: require('@/assets/thumbnails/lines.mov'),
+          link: '/lines'
+        },
+        {
+          thumbnail: require('@/assets/thumbnails/slash.mov'),
+          link: '/slash'
+        },
+        {
+          thumbnail: require('@/assets/thumbnails/fragmentshader.mov'),
+          link: '/fragmentshader'
+        },
+        {
+          thumbnail: require('@/assets/thumbnails/usestrict.png'),
+          link: '/usestrict'
+        }
+      ]
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped></style>
