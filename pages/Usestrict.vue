@@ -15,7 +15,6 @@ export default class UseStrict extends Vue {}
     width: 100%;
     height: 100%;
     color: #fff;
-    font-color: yellow;
   }
 }
 </style>
