@@ -53,10 +53,11 @@ export default Vue.extend({
 .thumbnails {
   margin: 0 auto;
   display: flex;
+  flex-wrap: wrap;
   width: 1280px;
 }
 .thumbnail {
-  border: medium solid #ff00ff;
+  margin: 2px 4px 0px;
   &-img {
     width: 291.24px;
     height: 180px;

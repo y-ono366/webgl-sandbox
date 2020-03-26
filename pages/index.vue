@@ -31,12 +31,12 @@ export default Vue.extend({
           link: '/slash'
         },
         {
-          thumbnail: require('@/assets/thumbnails/usestrict.png'),
-          link: '/usestrict'
-        },
-        {
           thumbnail: require('@/assets/thumbnails/fragmentshader.mov'),
           link: '/fragmentshader'
+        },
+        {
+          thumbnail: require('@/assets/thumbnails/usestrict.png'),
+          link: '/usestrict'
         }
       ]
     }
