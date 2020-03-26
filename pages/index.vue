@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Thumbnails from '@/components/Thumbnails'
+import Thumbnails from '@/components/Thumbnails.vue'
 
 export default Vue.extend({
   layout: 'index',
