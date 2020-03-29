@@ -8,6 +8,10 @@ export default {}
 </script>
 
 <style lang="scss">
+@font-face {
+  font-family: 'ultimatemetal';
+  src: url('../static/ultimate-black.ttf');
+}
 .section {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -2,13 +2,18 @@
   <div ref="pixisec" class="pixisec" />
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-
-export default Vue.extend({
-  mounted() {
-    const PIXI = require('pixi.js')
-    const app = new PIXI.Application({
+<script>
+export default {
+  data() {
+    return {
+      PIXI: null,
+      style: null,
+      fill: ['#272727', '#373737', '#484848', '#545454', '#636363']
+    }
+  },
+  async mounted() {
+    this.PIXI = require('pixi.js')
+    const app = new this.PIXI.Application({
       width: window.innerWidth,
       height: window.innerHeight
     })
@@ -16,38 +21,41 @@ export default Vue.extend({
     app.renderer.autoDensity = true
     app.stage.interactive = true
 
-    const style = new PIXI.TextStyle({
-      // fontFamily: 'ultimatemetal',
-      fontSize: 60,
-      fontStyle: 'italic',
-      fontWeight: 'bold',
-      fill: ['#ffffff', '#00ff99'], // gradient
-      stroke: '#4a1850',
-      strokeThickness: 5,
+    const FontFaceObserver = require('fontfaceobserver')
+    await new FontFaceObserver('ultimatemetal').load()
+
+    this.style = new this.PIXI.TextStyle({
+      fontFamily: 'ultimatemetal',
+      fill: this.fill,
+      fontSize: 330,
+      letterSpacing: 8,
       dropShadow: true,
-      dropShadowColor: '#000000',
-      dropShadowBlur: 4,
-      dropShadowAngle: Math.PI / 3,
-      dropShadowDistance: 4,
-      wordWrap: true,
-      wordWrapWidth: 540
+      dropShadowColor: '#ffffff',
+      dropShadowBlur: 1.3,
+      dropShadowAngle: Math.PI / 4,
+      dropShadowDistance: 5
     })
 
-    const richText = new PIXI.Text('U S E S T R I C T', style)
+    const richText = new this.PIXI.Text('USESTRICT', this.style)
     richText.x = 250
     richText.y = 250
 
     app.stage.addChild(richText)
+    this.tick()
+  },
+  methods: {
+    tick() {
+      setInterval(() => {
+        let arr = []
+        const last = this.fill.pop()
+        arr = this.fill.slice()
+        arr.unshift(last)
+        this.fill = arr
+        this.style.fill = this.fill
+      }, 100)
+    }
   }
-})
+}
 </script>
 
-<style lang="scss" scoped>
-@font-face {
-  font-family: 'ultimatemetal';
-  src: url('../static/ultimate-black.ttf');
-}
-.pixisec {
-  font-family: ultimatemetal;
-}
-</style>
+<style lang="scss" scoped></style>
