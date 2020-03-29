@@ -30,15 +30,18 @@ export default {
       fontSize: 330,
       letterSpacing: 8,
       dropShadow: true,
-      dropShadowColor: '#ffffff',
-      dropShadowBlur: 1.3,
+      dropShadowColor: '#272727',
+      dropShadowBlur: 5,
       dropShadowAngle: Math.PI / 4,
-      dropShadowDistance: 5
+      dropShadowDistance: 16,
+      align: 'center'
     })
+    this.PIXI.TextMetrics.BASELINE_SYMBOL += 'U T'
 
-    const richText = new this.PIXI.Text('USESTRICT', this.style)
-    richText.x = 250
-    richText.y = 250
+    const richText = new this.PIXI.Text(' USESTRICT ', this.style)
+    richText.x = window.innerWidth / 2
+    richText.y = window.innerHeight / 2
+    richText.anchor.set(0.5)
 
     app.stage.addChild(richText)
     this.tick()
