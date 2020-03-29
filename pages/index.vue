@@ -38,6 +38,10 @@ export default Vue.extend({
           alt: 'usestrict',
           thumbnail: require('@/assets/thumbnails/usestrict.png'),
           link: '/usestrict'
+        },
+        {
+          thumbnail: require('@/assets/thumbnails/pixijs.mov'),
+          link: '/pixi'
         }
       ]
     }
