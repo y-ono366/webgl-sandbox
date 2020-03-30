@@ -6,9 +6,14 @@
 import Vue from 'vue'
 import { TextStyle } from 'pixi.js'
 let style: TextStyle
+type LocalData = {
+  fill: string[]
+  intervalId: number
+}
 export default Vue.extend({
-  data() {
+  data(): LocalData {
     return {
+      intervalId: 0,
       fill: ['#272727', '#373737', '#484848', '#545454', '#636363']
     }
   },
@@ -49,9 +54,12 @@ export default Vue.extend({
     app.stage.addChild(richText)
     this.tick()
   },
+  destroyed() {
+    this.intervalId && clearInterval(this.intervalId)
+  },
   methods: {
     tick() {
-      setInterval(() => {
+      this.intervalId = window.setInterval(() => {
         let arr = []
         const last = this.fill.pop() as string
         arr = this.fill.slice()

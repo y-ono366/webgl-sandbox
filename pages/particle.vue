@@ -5,14 +5,22 @@
 <script lang="ts">
 import Vue from 'vue'
 import { ParticleContainer, Sprite } from 'pixi.js'
+
 let container: ParticleContainer
 const particles: Sprite[] = []
 
+type LocalData = {
+  width: number
+  height: number
+  intervalId: number
+}
+
 export default Vue.extend({
-  data() {
+  data(): LocalData {
     return {
       width: 0,
-      height: 0
+      height: 0,
+      intervalId: 0
     }
   },
   async mounted() {
@@ -47,9 +55,12 @@ export default Vue.extend({
     }
     this.tick()
   },
+  destroyed() {
+    this.intervalId && clearInterval(this.intervalId)
+  },
   methods: {
     tick(): void {
-      setInterval(() => {
+      this.intervalId = window.setInterval(() => {
         for (let i = 0; i < particles.length; i++) {
           particles[i].x -= 24
 
