@@ -15,11 +15,11 @@ export default Vue.extend({
     items() {
       return [
         {
-          thumbnail: require('@/assets/thumbnails/particle.mov'),
+          thumbnail: require('@/assets/thumbnails/particle.mp4'),
           link: '/particle'
         },
         {
-          thumbnail: require('@/assets/thumbnails/pixijs.mov'),
+          thumbnail: require('@/assets/thumbnails/pixijs.mp4'),
           link: '/pixi'
         },
         {
@@ -28,23 +28,23 @@ export default Vue.extend({
           link: '/usestrict'
         },
         {
-          thumbnail: require('@/assets/thumbnails/fragmentshader.mov'),
+          thumbnail: require('@/assets/thumbnails/fragmentshader.mp4'),
           link: '/fragmentshader'
         },
         {
-          thumbnail: require('@/assets/thumbnails/slash.mov'),
+          thumbnail: require('@/assets/thumbnails/slash.mp4'),
           link: '/slash'
         },
         {
-          thumbnail: require('@/assets/thumbnails/lines.mov'),
+          thumbnail: require('@/assets/thumbnails/lines.mp4'),
           link: '/lines'
         },
         {
-          thumbnail: require('@/assets/thumbnails/samplebox2.mov'),
+          thumbnail: require('@/assets/thumbnails/samplebox2.mp4'),
           link: '/samplebox2'
         },
         {
-          thumbnail: require('@/assets/thumbnails/samplebox.mov'),
+          thumbnail: require('@/assets/thumbnails/samplebox.mp4'),
           link: '/samplebox'
         }
       ]
