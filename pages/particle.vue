@@ -9,11 +9,19 @@ let container: ParticleContainer
 const particles: Sprite[] = []
 
 export default Vue.extend({
+  data() {
+    return {
+      width: 0,
+      height: 0
+    }
+  },
   async mounted() {
+    this.width = window.innerWidth
+    this.height = window.innerHeight
     const PIXI = await import('pixi.js')
     const app: PIXI.Application = new PIXI.Application({
-      width: window.innerWidth,
-      height: window.innerHeight
+      width: this.width,
+      height: this.height
     })
     const pixisec = this.$refs.pixisec as HTMLDivElement
     pixisec.appendChild(app.view)
@@ -23,21 +31,18 @@ export default Vue.extend({
     container = new PIXI.ParticleContainer()
     app.stage.addChild(container)
 
-    const graphic = new PIXI.Graphics()
-    graphic.lineStyle(20, 272727, 10)
-    graphic.beginFill(0x111111, 0.7)
-    graphic.drawCircle(0, 0, 50)
-    graphic.endFill()
+    const graphics = new PIXI.Graphics()
+    graphics.lineStyle(2, 0x90d911, 0.5)
+    graphics.beginFill(0x650a5a)
+    graphics.drawRoundedRect(50, 440, 250, 1, 1)
+    graphics.endFill()
 
     for (let i = 0; i < 100; i++) {
-      const texture = app.renderer.generateTexture(graphic, 1, 1)
+      const texture = app.renderer.generateTexture(graphics, 1, 1)
       const spriteParticle = new PIXI.Sprite(texture)
-      spriteParticle.x = Math.abs(Math.random() * window.innerWidth - 100)
-      spriteParticle.y = Math.abs(Math.random() * window.innerHeight - 100)
+      spriteParticle.x = Math.abs(Math.random() * this.width - 100)
+      spriteParticle.y = Math.random() * this.height
       particles.push(spriteParticle)
-      // const sprites = PIXI.Sprite.from(StoneImage)
-      // sprites.x = (i % 5) * 40
-      // sprites.y = Math.floor(i / 5) * 40
       container.addChild(spriteParticle)
     }
     this.tick()
@@ -46,12 +51,15 @@ export default Vue.extend({
     tick(): void {
       setInterval(() => {
         for (let i = 0; i < particles.length; i++) {
-          particles[i].x += 2
-          particles[i].y += 2
+          particles[i].x -= 24
+
+          if (particles[i].x > this.width + 250) {
+            particles[i].x = -5
+          } else if (particles[i].x < 0 - 250) {
+            particles[i].x = this.width + 5
+          }
         }
-        // spriteParticle.x += 30
-        // spriteParticle.y += 30
-      }, 100)
+      }, 20)
     }
   }
 })
