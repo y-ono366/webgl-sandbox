@@ -17,7 +17,7 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@types/node", "@nuxt/types", "nuxt-i18n"]
+    "types": ["@types/node", "pixi.js", "@nuxt/types"]
   },
   "exclude": ["node_modules"]
 }

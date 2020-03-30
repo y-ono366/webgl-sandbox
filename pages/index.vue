@@ -42,6 +42,10 @@ export default Vue.extend({
         {
           thumbnail: require('@/assets/thumbnails/pixijs.mov'),
           link: '/pixi'
+        },
+        {
+          thumbnail: require('@/assets/thumbnails/particle.mov'),
+          link: '/particle'
         }
       ]
     }
