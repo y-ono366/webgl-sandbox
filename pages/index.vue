@@ -15,24 +15,12 @@ export default Vue.extend({
     items() {
       return [
         {
-          thumbnail: require('@/assets/thumbnails/samplebox.mov'),
-          link: '/samplebox'
+          thumbnail: require('@/assets/thumbnails/particle.mov'),
+          link: '/particle'
         },
         {
-          thumbnail: require('@/assets/thumbnails/samplebox2.mov'),
-          link: '/samplebox2'
-        },
-        {
-          thumbnail: require('@/assets/thumbnails/lines.mov'),
-          link: '/lines'
-        },
-        {
-          thumbnail: require('@/assets/thumbnails/slash.mov'),
-          link: '/slash'
-        },
-        {
-          thumbnail: require('@/assets/thumbnails/fragmentshader.mov'),
-          link: '/fragmentshader'
+          thumbnail: require('@/assets/thumbnails/pixijs.mov'),
+          link: '/pixi'
         },
         {
           alt: 'usestrict',
@@ -40,12 +28,24 @@ export default Vue.extend({
           link: '/usestrict'
         },
         {
-          thumbnail: require('@/assets/thumbnails/pixijs.mov'),
-          link: '/pixi'
+          thumbnail: require('@/assets/thumbnails/fragmentshader.mov'),
+          link: '/fragmentshader'
         },
         {
-          thumbnail: require('@/assets/thumbnails/particle.mov'),
-          link: '/particle'
+          thumbnail: require('@/assets/thumbnails/slash.mov'),
+          link: '/slash'
+        },
+        {
+          thumbnail: require('@/assets/thumbnails/lines.mov'),
+          link: '/lines'
+        },
+        {
+          thumbnail: require('@/assets/thumbnails/samplebox2.mov'),
+          link: '/samplebox2'
+        },
+        {
+          thumbnail: require('@/assets/thumbnails/samplebox.mov'),
+          link: '/samplebox'
         }
       ]
     }
