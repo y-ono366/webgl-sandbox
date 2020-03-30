@@ -50,6 +50,7 @@ export default Vue.extend({
       const spriteParticle = new PIXI.Sprite(texture)
       spriteParticle.x = Math.abs(Math.random() * this.width - 100)
       spriteParticle.y = Math.random() * this.height
+      spriteParticle.speed = Math.random() * 20 + 10
       particles.push(spriteParticle)
       container.addChild(spriteParticle)
     }
@@ -62,7 +63,7 @@ export default Vue.extend({
     tick(): void {
       this.intervalId = window.setInterval(() => {
         for (let i = 0; i < particles.length; i++) {
-          particles[i].x -= 24
+          particles[i].x -= particles[i].speed
 
           if (particles[i].x > this.width + 250) {
             particles[i].x = -5
