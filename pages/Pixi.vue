@@ -2,29 +2,32 @@
   <div ref="pixisec" class="pixisec" />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+import { TextStyle } from 'pixi.js'
+let style: TextStyle
+export default Vue.extend({
   data() {
     return {
-      PIXI: null,
-      style: null,
       fill: ['#272727', '#373737', '#484848', '#545454', '#636363']
     }
   },
   async mounted() {
-    this.PIXI = require('pixi.js')
-    const app = new this.PIXI.Application({
+    const PIXI = await import('pixi.js')
+    const app: PIXI.Application = new PIXI.Application({
       width: window.innerWidth,
       height: window.innerHeight
     })
-    this.$refs.pixisec.appendChild(app.view)
+
+    const pixisec = this.$refs.pixisec as HTMLDivElement
+    pixisec.appendChild(app.view)
     app.renderer.autoDensity = true
     app.stage.interactive = true
 
     const FontFaceObserver = require('fontfaceobserver')
     await new FontFaceObserver('ultimatemetal').load()
 
-    this.style = new this.PIXI.TextStyle({
+    style = new PIXI.TextStyle({
       fontFamily: 'ultimatemetal',
       fill: this.fill,
       fontSize: 330,
@@ -36,9 +39,9 @@ export default {
       dropShadowDistance: 16,
       align: 'center'
     })
-    this.PIXI.TextMetrics.BASELINE_SYMBOL += 'U T'
+    PIXI.TextMetrics.BASELINE_SYMBOL += 'U T'
 
-    const richText = new this.PIXI.Text(' USESTRICT ', this.style)
+    const richText = new PIXI.Text(' USESTRICT ', style)
     richText.x = window.innerWidth / 2
     richText.y = window.innerHeight / 2
     richText.anchor.set(0.5)
@@ -50,15 +53,15 @@ export default {
     tick() {
       setInterval(() => {
         let arr = []
-        const last = this.fill.pop()
+        const last = this.fill.pop() as string
         arr = this.fill.slice()
         arr.unshift(last)
         this.fill = arr
-        this.style.fill = this.fill
+        style.fill = this.fill
       }, 100)
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped></style>

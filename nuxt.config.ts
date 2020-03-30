@@ -1,4 +1,7 @@
-export default {
+import { Configuration } from '@nuxt/types'
+// const webpack = require('webpack')
+
+const config: Configuration = {
   mode: 'universal',
   /*
    ** Headers of the page
@@ -27,7 +30,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  // plugins: [{ src: '@/plugins/pixi', ssr: false }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -46,7 +49,7 @@ export default {
    ** Build configuration
    */
   build: {
-    extend(config) {
+    extend(config: any) {
       config.module.rules.push({
         test: /\.(wav|mov?)$/i,
         loader: 'file-loader',
@@ -62,3 +65,5 @@ export default {
     ignoreNotFoundWarnings: true
   }
 }
+
+export default config
