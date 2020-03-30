@@ -7,12 +7,15 @@ import Vue from 'vue'
 import { ParticleContainer, Sprite } from 'pixi.js'
 
 let container: ParticleContainer
-const particles: Sprite[] = []
+const particles: SpriteWrap[] = []
 
 type LocalData = {
   width: number
   height: number
   intervalId: number
+}
+interface SpriteWrap extends Sprite {
+  speed: number
 }
 
 export default Vue.extend({
@@ -47,7 +50,7 @@ export default Vue.extend({
 
     for (let i = 0; i < 100; i++) {
       const texture = app.renderer.generateTexture(graphics, 1, 1)
-      const spriteParticle = new PIXI.Sprite(texture)
+      const spriteParticle = new PIXI.Sprite(texture) as SpriteWrap
       spriteParticle.x = Math.abs(Math.random() * this.width - 100)
       spriteParticle.y = Math.random() * this.height
       spriteParticle.speed = Math.random() * 20 + 10
