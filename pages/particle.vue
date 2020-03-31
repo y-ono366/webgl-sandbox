@@ -8,6 +8,7 @@ import { ParticleContainer, Sprite } from 'pixi.js'
 
 let container: ParticleContainer
 const particles: SpriteWrap[] = []
+let app: PIXI.Application
 
 type LocalData = {
   width: number
@@ -59,8 +60,9 @@ export default Vue.extend({
     }
     this.tick()
   },
-  destroyed() {
+  beforeDestroy() {
     this.intervalId && clearInterval(this.intervalId)
+    app.destroy()
   },
   methods: {
     tick(): void {
