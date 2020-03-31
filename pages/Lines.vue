@@ -13,7 +13,8 @@ export default {
       scene: new THREE.Scene(),
       box: null,
       camera: null,
-      line: null
+      line: null,
+      animateFrameId: 0
     }
   },
   created() {
@@ -35,6 +36,9 @@ export default {
 
     this.tick()
   },
+  beforeDestroy() {
+    cancelAnimationFrame(this.animateFrameId)
+  },
   methods: {
     init() {
       const boxGeometry = new THREE.BoxGeometry(9, 9, 1400)
@@ -53,7 +57,7 @@ export default {
       )
     },
     tick() {
-      requestAnimationFrame(this.tick)
+      this.animateFrameId = requestAnimationFrame(this.tick)
       this.box.rotation.x += 3
       this.box.rotation.y += 0.02
       this.renderer.render(this.scene, this.camera)

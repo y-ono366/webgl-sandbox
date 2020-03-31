@@ -16,7 +16,8 @@ export default {
       camera: null,
       mesh: null,
       directionalLight: new THREE.DirectionalLight(0xffffff),
-      stoneTexture: null
+      stoneTexture: null,
+      animateFrameId: 0
     }
   },
 
@@ -39,12 +40,15 @@ export default {
 
     this.tick()
   },
+  beforeDestroy() {
+    cancelAnimationFrame(this.animateFrameId)
+  },
   methods: {
     tick() {
       this.mesh.rotation.y += 0.02
       this.mesh.rotation.x += 0.01
       this.renderer.render(this.scene, this.camera)
-      window.requestAnimationFrame(this.tick)
+      this.animateFrameId = requestAnimationFrame(this.tick)
     }
   }
 }
