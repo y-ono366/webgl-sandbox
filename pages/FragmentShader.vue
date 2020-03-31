@@ -37,6 +37,12 @@ export default {
     this.init()
     this.animate()
   },
+  beforeDestroy() {
+    this.scene.remove(this.group)
+    cancelAnimationFrame(this.animateframe)
+    this.renderer = null
+    this.particlesData = []
+  },
   methods: {
     init() {
       this.renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -69,7 +75,7 @@ export default {
 
       const particles = new THREE.BufferGeometry()
       this.particlePositions = new Float32Array(this.maxParticleCount * 3)
-
+      const velocity = new THREE.Vector3(-1 + Math.random() * 2, -1 + Math.random() * 2, -1 + Math.random() * 2)
       for (let i = 0; i < this.maxParticleCount; i++) {
         const x = Math.random() * this.r - this.r / 2
         const y = Math.random() * this.r - this.r / 2
@@ -81,7 +87,7 @@ export default {
 
         // add it to the geometry
         this.particlesData.push({
-          velocity: new THREE.Vector3(-1 + Math.random() * 2, -1 + Math.random() * 2, -1 + Math.random() * 2),
+          velocity,
           numConnections: 0
         })
       }
@@ -191,7 +197,7 @@ export default {
 
       this.pointCloud.geometry.attributes.position.needsUpdate = true
 
-      requestAnimationFrame(this.animate)
+      this.animateframe = requestAnimationFrame(this.animate)
 
       this.render()
     },

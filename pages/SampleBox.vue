@@ -15,8 +15,12 @@ export default {
       renderer: null,
       camera: null,
       light: new THREE.DirectionalLight(0xffffff),
-      cube: new THREE.Mesh(geometry, material)
+      cube: new THREE.Mesh(geometry, material),
+      animateFrameId: 0
     }
+  },
+  beforeDestroy() {
+    cancelAnimationFrame(this.animateFrameId)
   },
   mounted() {
     const canvas = this.$refs.canvas
@@ -36,7 +40,7 @@ export default {
   },
   methods: {
     animate() {
-      requestAnimationFrame(this.animate)
+      this.animateFrameId = requestAnimationFrame(this.animate)
 
       this.cube.rotation.x += 0.02
       this.cube.rotation.y += 0.02
