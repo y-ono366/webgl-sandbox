@@ -13,23 +13,21 @@
     "pre": "./node_modules/.bin/prettier \"./**/*.{js,vue,css}\" --write"
   },
   "dependencies": {
-    "@nuxt/typescript-runtime": "^0.4.0",
-    "@nuxtjs/pwa": "^3.0.0-0",
-    "cross-env": "^7.0.2",
     "fontfaceobserver": "^2.1.0",
     "nuxt": "^2.0.0",
     "pixi.js": "^5.2.1",
     "three": "^0.113.2",
-    "three-orbitcontrols": "^2.110.3",
-    "vue-property-decorator": "^8.4.0"
+    "three-orbitcontrols": "^2.110.3"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.5.7",
+    "@nuxt/typescript-runtime": "^0.4.1",
     "@nuxtjs/eslint-config": "^1.0.1",
     "@nuxtjs/eslint-config-typescript": "^1.0.2",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/stylelint-module": "^3.1.0",
     "babel-eslint": "^10.0.1",
+    "cross-env": "^7.0.2",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-nuxt": ">=0.4.2",
