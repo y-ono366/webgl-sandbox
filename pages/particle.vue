@@ -8,31 +8,18 @@ import { ParticleContainer, Sprite } from 'pixi.js'
 
 let container: ParticleContainer
 const particles: SpriteWrap[] = []
+let app: PIXI.Application
 
-type LocalData = {
-  width: number
-  height: number
-  intervalId: number
-}
 interface SpriteWrap extends Sprite {
   speed: number
 }
 
 export default Vue.extend({
-  data(): LocalData {
-    return {
-      width: 0,
-      height: 0,
-      intervalId: 0
-    }
-  },
   async mounted() {
-    this.width = window.innerWidth
-    this.height = window.innerHeight
     const PIXI = await import('pixi.js')
-    const app: PIXI.Application = new PIXI.Application({
-      width: this.width,
-      height: this.height
+    app = new PIXI.Application({
+      width: window.innerWidth,
+      height: window.innerHeight
     })
     const pixisec = this.$refs.pixisec as HTMLDivElement
     pixisec.appendChild(app.view)
@@ -51,30 +38,28 @@ export default Vue.extend({
     for (let i = 0; i < 100; i++) {
       const texture = app.renderer.generateTexture(graphics, 1, 1)
       const spriteParticle = new PIXI.Sprite(texture) as SpriteWrap
-      spriteParticle.x = Math.abs(Math.random() * this.width - 100)
-      spriteParticle.y = Math.random() * this.height
+      spriteParticle.x = Math.abs(Math.random() * window.innerWidth - 100)
+      spriteParticle.y = Math.random() * window.innerHeight
       spriteParticle.speed = Math.random() * 20 + 10
       particles.push(spriteParticle)
       container.addChild(spriteParticle)
     }
-    this.tick()
+    app.ticker.add(this.tick)
   },
-  destroyed() {
-    this.intervalId && clearInterval(this.intervalId)
+  beforeDestroy() {
+    app.destroy(true)
   },
   methods: {
     tick(): void {
-      this.intervalId = window.setInterval(() => {
-        for (let i = 0; i < particles.length; i++) {
-          particles[i].x -= particles[i].speed
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].x -= particles[i].speed
 
-          if (particles[i].x > this.width + 250) {
-            particles[i].x = -5
-          } else if (particles[i].x < 0 - 250) {
-            particles[i].x = this.width + 5
-          }
+        if (particles[i].x > window.innerWidth + 250) {
+          particles[i].x = -5
+        } else if (particles[i].x < 0 - 250) {
+          particles[i].x = window.innerWidth + 5
         }
-      }, 20)
+      }
     }
   }
 })
