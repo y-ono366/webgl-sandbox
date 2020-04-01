@@ -15,6 +15,10 @@ export default Vue.extend({
     items() {
       return [
         {
+          thumbnail: require('@/assets/thumbnails/particle2.mp4'),
+          link: '/particle2'
+        },
+        {
           thumbnail: require('@/assets/thumbnails/particle.mp4'),
           link: '/particle'
         },

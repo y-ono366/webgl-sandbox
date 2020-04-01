@@ -29,13 +29,18 @@ export default Vue.extend({
 
     const circlePath = new PIXI.Graphics()
 
+    const length: number = 30
+    const radius: number = 30
+
     let startAngle: number = 0
-    let endAngle: number = 60
-    let defaultRadius: number = 80
+    let endAngle: number = length
+    let defaultRadius: number = radius
     let duration: number = 20
-    for (let i = 1; i < 40; i++) {
+    let reverseFlg: boolean = false
+    let margin: number = endAngle * 2
+    for (let i = 1; i < 143; i++) {
       const circlePathCP = circlePath.clone() as circleParticleWrap
-      circlePathCP.lineStyle(40, 0xffffff, 1)
+      circlePathCP.lineStyle(20, 0xffffff, 1)
       circlePathCP.startAngle = startAngle * RAD
       circlePathCP.endAngle = endAngle * RAD
       circlePathCP.arc(
@@ -49,28 +54,46 @@ export default Vue.extend({
       app.stage.addChild(circlePathCP)
       circleParticle.push(circlePathCP)
 
-      TweenMax.fromTo(
-        circlePathCP,
-        duration,
-        {
-          startAngle,
-          endAngle
-        },
-        {
-          startAngle: startAngle + 360,
-          endAngle: endAngle + 361,
-          repeat: -1,
-          ease: 'none'
-        }
-      )
-      if (i % 3 === 0 && i !== 0) {
-        defaultRadius = defaultRadius + 80
-        duration = Math.random() * 10 + 10
-      }
+      const position = reverseFlg
+        ? {
+            from: {
+              startAngle: startAngle + 360,
+              endAngle: endAngle + 361
+            },
+            to: {
+              startAngle,
+              endAngle
+            }
+          }
+        : {
+            from: {
+              startAngle,
+              endAngle
+            },
+            to: {
+              startAngle: startAngle + 360,
+              endAngle: endAngle + 361
+            }
+          }
+      TweenMax.fromTo(circlePathCP, duration, position.from, {
+        startAngle: position.to.startAngle,
+        endAngle: position.to.endAngle,
+        repeat: -1,
+        ease: 'none'
+      })
 
-      if (i % 3 !== 0 || i === 0) {
-        startAngle += 120
-        endAngle += 120
+      if (endAngle < 360) {
+        // 層内対応
+        startAngle += margin
+        endAngle += margin
+      } else {
+        // 上層対応
+        defaultRadius = defaultRadius + radius
+        duration = Math.random() * 10 + 10
+        reverseFlg = !reverseFlg
+        startAngle = 0
+        endAngle = length / 2
+        margin = endAngle * 1.7
       }
     }
 
@@ -84,7 +107,7 @@ export default Vue.extend({
       for (let i = 0; i < circleParticle.length; i++) {
         circleParticle[i]
           .clear()
-          .lineStyle(35, 0xffffff, 1)
+          .lineStyle(20, 0xffffff, 1)
           .arc(
             window.innerWidth / 2,
             window.innerHeight / 2,
